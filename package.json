@@ -29,6 +29,7 @@
     "postcss": "^8.4.38",
     "prisma": "^5.14.0",
     "quick-lru": "^7.0.0",
+    "rapidoc": "^9.3.4",
     "react": "18.2.0",
     "react-async-hook": "^4.0.0",
     "react-dom": "18.2.0",
@@ -37,6 +38,7 @@
     "react-signal": "^0.3.0",
     "react-textarea-autosize": "^8.5.3",
     "rsuite": "^5.62.1",
+    "swagger-ui-react": "^5.17.12",
     "tailwindcss": "^3.4.3",
     "tailwindcss-signals": "^0.0.25"
   }

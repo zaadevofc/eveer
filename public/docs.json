@@ -1,0 +1,62 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is the frontend application for an Event Organizer Prediction system, utilizing `NextJS`, `PostgreSQL`, and `Supabase.`",
+    "version": "1.0.0",
+    "title": "Event Organizer",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/api/signal",
+  "tags": [
+    {
+      "name": "User",
+      "description": "User crud system"
+    },
+    {
+      "name": "Event",
+      "description": "User crud system"
+    },
+    {
+      "name": "Income",
+      "description": "Income crud system"
+    },
+    {
+      "name": "Auth",
+      "description": "Authentication system"
+    }
+  ],
+  "schemes": ["https"],
+  "paths": {
+    "/user/lists": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Lists semua user",
+        "description": "Diperlukan token untuk keamanan data. Masukan object ke dalam fungsi `await signJWT({ data_apapun })` lalu fungsi ini akan mengembalikan token yang akan di kirimkan ke server.",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "body",
+            "description": "Token yang sudah di buat",
+            "required": true,
+            "type": "object",
+            "schema": {
+              "properties": {
+                "token": { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    }    
+  }
+}

@@ -4,6 +4,9 @@ import NextNProgress from "nextjs-progressbar";
 import { createContext, useState } from "react";
 import Loading from "./components/Loading";
 
+import "swagger-ui-react/swagger-ui.css";
+import "rsuite/dist/rsuite-no-reset.min.css";
+
 const queryClient = new QueryClient();
 export const SystemContext = createContext();
 

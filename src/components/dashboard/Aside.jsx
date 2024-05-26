@@ -2,7 +2,7 @@ import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useContext } from 'react'
-import { LuLayoutDashboard, LuLock, LuLogOut, LuPlaySquare, LuScrollText, LuUser2, LuUsers2, LuWallet, LuX } from 'react-icons/lu'
+import { LuBookOpen, LuLayoutDashboard, LuLock, LuLogOut, LuPlaySquare, LuScrollText, LuUser2, LuUsers2, LuWallet, LuX } from 'react-icons/lu'
 import Brands from '../../components/Brands'
 import { SystemContext } from '../../provider'
 
@@ -28,6 +28,7 @@ const Aside = () => {
       list: [
         { i: LuUser2, t: 'Profile', h: '/dashboard/profile', a: 0, c: ['user', 'panitia', 'admin'] },
         { i: LuLock, t: 'Ubah Password', h: '/dashboard/change-password', a: 0, c: ['user', 'panitia', 'admin'] },
+        { i: LuBookOpen, t: 'Documentation', h: '/dashboard/documentation', a: 0, c: ['panitia', 'admin'] },
       ]
     },
   ]
@@ -36,7 +37,7 @@ const Aside = () => {
     <>
       <aside className={`
           ${aside && '!fixed !w-full !max-w-60 !shadow-2xl !items-start !flex !px-4'}
-          group z-50 max-sm:hover:fixed max-sm:hover:!w-full max-sm:hover:!max-w-60 top-0 left-0 bg-white max-sm:hover:shadow-2xl flex flex-col max-[440px]:hidden min-[440px]:px-3 sm:px-4 py-5 max-sm:hover:items-start items-center sm:w-full sm:items-start sm:max-w-60 lg:max-w-72 gap-8 min-h-dvh border-r overflow-y-scroll`}>
+          group z-50 max-sm:hover:fixed sticky h-dvh max-sm:hover:!w-full max-sm:hover:!max-w-60 top-0 left-0 bg-white max-sm:hover:shadow-2xl flex flex-col max-[440px]:hidden min-[440px]:px-3 sm:px-4 py-5 max-sm:hover:items-start items-center sm:w-full sm:items-start sm:max-w-60 lg:max-w-72 gap-8 min-h-dvh border-r overflow-y-scroll`}>
         <Brands className={`
           ${aside && '!hidden'}  
           max-sm:group-hover:!hidden sm:hidden sm:pl-5 text-2xl`} custom={'E'} />

@@ -119,10 +119,7 @@ export const statusColor = (status) =>
 
 export const parseForm = (target) => Object.fromEntries(new FormData(target));
 
-export const supabase = createClient(
-  "SUPABASE_URL",
-  "ANON_KEY"
-);
+export const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_ANON_KEY);
 
 export const toLocalISOString = (date) => {
   const lokal = new Date(date - date.getTimezoneOffset() * 60000);

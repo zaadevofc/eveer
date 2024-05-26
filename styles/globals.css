@@ -108,3 +108,7 @@ h1 {
     }
   }
 }
+
+.swagger-ui * {
+  @apply !font-[Onest] !transition-all !duration-200;
+}

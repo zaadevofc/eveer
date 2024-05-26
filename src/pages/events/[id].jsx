@@ -1,9 +1,10 @@
 import { useParams, usePathname } from "next/navigation";
 import React from "react";
-import { Highlight } from 'rsuite';
 import { AiOutlineWhatsApp } from "react-icons/ai";
 import { LuFacebook, LuForward, LuTwitter } from "react-icons/lu";
 import { FacebookShareButton, TwitterShareButton, WhatsappShareButton } from "react-share";
+import { Highlight } from 'rsuite';
+import EventHead from "../../components/EventHead";
 import InfoScreen from "../../components/InfoScreen";
 import Layouts from "../../components/Layouts";
 import Loading from "../../components/Loading";
@@ -25,10 +26,16 @@ const EventDetailPage = () => {
 
   return (
     <>
+      <EventHead 
+        event_name={x.event_name}
+        event_kecamatan={x.event_kecamatan}
+        event_thumbnail={x.event_thumbnail}
+        desc={share_pesan}
+       />
       <Layouts className={'px-4 sm:px-10'}>
         <div className="flex flex-col max-w-3xl mx-auto w-full">
           <main>
-            <div className="mb-4 md:mb-0 w-full mx-auto relative h-[24em]">
+            <div className="mb-4 md:mb-0 w-full mx-auto relative h-[620px]">
               <div className="absolute bg-[linear-gradient(180deg,transparent,rgba(0,0,0,.7))] left-0 bottom-0 w-full h-full z-10" />
               <img src={x.event_thumbnail}
                 className="absolute rounded-xl left-0 top-0 w-full h-full z-0 object-cover"
