@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String  @id @default(cuid())
+  name     String? @default("")
+  username String  @unique
+  email    String  @unique
+  password String
+  picture  String  @default("https://raw.githubusercontent.com/zaadevofc/zaadevofc/main/empty-profile-picture.webp")
+  role     ROLE    @default(USER)
+
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
+}
+
+model Event {
+  id String @id @default(cuid())
+
+  event_name        String       @unique
+  event_thumbnail   String
+  event_kecamatan   String
+  event_description String
+  event_status      EVENT_STATUS @default(PENDING)
+  event_release     String
+  event_finish      String
+
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
+  Income    Income[]
+}
+
+model Income {
+  id String @id @default(cuid())
+
+  income_event_id  String
+  income_target_id String @unique
+  income_target    Event  @relation(fields: [income_event_id], references: [id])
+  income_value     String
+  income_release   String
+
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
+}
+
+enum ROLE {
+  ADMIN
+  PANITIA
+  USER
+}
+
+enum EVENT_STATUS {
+  PENDING
+  PROGRESS
+  FINISH
+}

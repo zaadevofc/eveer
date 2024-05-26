@@ -1,72 +1,27 @@
-import { NextResponse } from 'next/server';
+export { default } from "next-auth/middleware";
+import { NextResponse } from "next/server";
 
-export default async function middleware(req) {
-    const url = req.nextUrl
-    const auth = req.cookies.get('accessToken')
+const secure = ["/dashboard*"];
+const notAccess = ["/auth*"];
 
-    const isUserAuthenticated = async () => {
-        let isAuthenticated = false
-        await fetch(`${process.env.NEXT_PUBLIC_RESTFUL_API}/account/me`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${auth?.value}`
-            }
-        }).then(async (res) => {
-            const data = await res.json()
+export async function middleware(req) {
+  const redirect = (uri) => NextResponse.redirect(new URL(uri, req.url));
+  const session = await req.cookies.get("eveer-passport.session-token")?.value;
+  const pathname = req.nextUrl.pathname;
+  const isSecure = secure.some((path) =>
+    path.endsWith("*")
+      ? pathname.startsWith(path.slice(0, -1))
+      : path == pathname
+  );
+  const isNotAccess = notAccess.some((path) =>
+    path.endsWith("*")
+      ? pathname.startsWith(path.slice(0, -1))
+      : path == pathname
+  );
 
-            if (data?.id) {
-                isAuthenticated = true
-            }
-        }).catch((err) => {
-            isAuthenticated = false
-        })
-
-        return isAuthenticated
-    }
-
-    const isUserAuthenticatedAsAdmin = async () => {
-        let isAuthenticated = false
-        await fetch(`${process.env.NEXT_PUBLIC_RESTFUL_API}/account/me`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${auth?.value}`
-            }
-        }).then(async (res) => {
-            const data = await res.json()
-
-            if (data?.id && (data?.role === 'Admin' || data?.role === 'Panitia')) {
-                isAuthenticated = true
-            }
-        }).catch((err) => {
-            isAuthenticated = false
-        })
-
-        return isAuthenticated
-    }
-
-    const isAuthenticated = await isUserAuthenticated().then((res) => { return res })
-    const isAuthenticatedAsAdmin = await isUserAuthenticatedAsAdmin().then((res) => { return res })
-
-    if (url.pathname.includes('/dashboard')) {
-        if (!isAuthenticatedAsAdmin) {
-            url.pathname = '/'
-            return NextResponse.redirect(url)
-        } else {
-            return NextResponse.next()
-        }
-    } else if (url.pathname.includes('/login')) {
-        if (isAuthenticated) {
-            url.pathname = '/'
-            return NextResponse.redirect(url)
-        } else {
-            console.log('Woi')
-            return NextResponse.next()
-        }
-    } else if (url.pathname.includes('/logout')) {
-        if (isAuthenticated) {
-            req.cookies.delete('accessToken')
-        }
-    }
-
-    return NextResponse.next()
+  if (session) {
+    if (isNotAccess) return redirect("/");
+  } else {
+    if (isSecure) return redirect("/");
+  }
 }
