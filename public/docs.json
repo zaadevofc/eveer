@@ -1,15 +1,6 @@
 {
   "swagger": "2.0",
-  "info": {
-    "description": "This is the frontend application for an Event Organizer Prediction system, utilizing `NextJS`, `PostgreSQL`, and `Supabase.`",
-    "version": "1.0.0",
-    "title": "Event Organizer",
-    "license": {
-      "name": "Apache 2.0",
-      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-    }
-  },
-  "host": "localhost:3000",
+  "host": "eveer.vercel.app",
   "basePath": "/api/signal",
   "tags": [
     {
@@ -35,7 +26,7 @@
       "post": {
         "tags": ["User"],
         "summary": "Lists semua user",
-        "description": "Diperlukan token untuk keamanan data. Masukan object ke dalam fungsi `await signJWT({ data_apapun })` lalu fungsi ini akan mengembalikan token yang akan di kirimkan ke server.",
+        "description": "Diperlukan token untuk keamanan data. Masukan object ke dalam fungsi `await signJWT({ data_apapun })` lalu fungsi ini akan mengembalikan token yang akan di kirimkan ke server. ![Cara Bikin Token](/make-token.png)\n**PARAMETER**:\n\n`ok: boolean`",
         "consumes": ["application/json"],
         "parameters": [
           {
@@ -51,12 +42,270 @@
             }
           }
         ],
-        "responses": {
-          "200": {
-            "description": "successful operation"
-          }
-        }
+        "responses": {}
       }
-    }    
+    },
+    "/user/update": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Update user by id",
+        "description": "Diperlukan token untuk keamanan data. Masukan object ke dalam fungsi `await signJWT({ data_apapun })` lalu fungsi ini akan mengembalikan token yang akan di kirimkan ke server. ![Cara Bikin Token](/make-token.png)\n**PARAMETER**:\n\n`name?: string`\n`username?: string`\n`picture?: string`\n`role?: 'USER' | 'PANITIA' | 'ADMIN'`",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "body",
+            "description": "Token yang sudah di buat",
+            "required": true,
+            "type": "object",
+            "schema": {
+              "properties": {
+                "token": { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/user/change-password": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Change user password",
+        "description": "Diperlukan token untuk keamanan data. Masukan object ke dalam fungsi `await signJWT({ data_apapun })` lalu fungsi ini akan mengembalikan token yang akan di kirimkan ke server. ![Cara Bikin Token](/make-token.png)\n**PARAMETER**:\n\n`email: string`\n`old_password: string`\n`new_password: string`\n`confirm_new_password: string`",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "body",
+            "description": "Token yang sudah di buat",
+            "required": true,
+            "type": "object",
+            "schema": {
+              "properties": {
+                "token": { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/user/delete": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Delete user from database",
+        "description": "Diperlukan token untuk keamanan data. Masukan object ke dalam fungsi `await signJWT({ data_apapun })` lalu fungsi ini akan mengembalikan token yang akan di kirimkan ke server. ![Cara Bikin Token](/make-token.png)\n**PARAMETER**:\n\n`id: string`\n`email: string`",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "body",
+            "description": "Token yang sudah di buat",
+            "required": true,
+            "type": "object",
+            "schema": {
+              "properties": {
+                "token": { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/event/new": {
+      "post": {
+        "tags": ["Event"],
+        "summary": "Make new event",
+        "description": "Diperlukan token untuk keamanan data. Masukan object ke dalam fungsi `await signJWT({ data_apapun })` lalu fungsi ini akan mengembalikan token yang akan di kirimkan ke server. ![Cara Bikin Token](/make-token.png)\n**PARAMETER**:\n\n`event_name: string`\n`event_thumbnail: string`\n`event_kecamatan: string`\n`event_description: string`\n`event_status: 'PENDING' | 'PROGRESS' | 'FINISH'`\n`event_release: DateTime`\n`event_finish: DateTime`",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "body",
+            "description": "Token yang sudah di buat",
+            "required": true,
+            "type": "object",
+            "schema": {
+              "properties": {
+                "token": { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/event/delete": {
+      "post": {
+        "tags": ["Event"],
+        "summary": "Delete event",
+        "description": "Diperlukan token untuk keamanan data. Masukan object ke dalam fungsi `await signJWT({ data_apapun })` lalu fungsi ini akan mengembalikan token yang akan di kirimkan ke server. ![Cara Bikin Token](/make-token.png)\n**PARAMETER**:\n\n`id: string`",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "force",
+            "in": "query",
+            "description": "Masukan angka 1 yang mana ini akan menghapus paksa event",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "token",
+            "in": "body",
+            "description": "Token yang sudah di buat",
+            "required": true,
+            "type": "object",
+            "schema": {
+              "properties": {
+                "token": { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/event/detail": {
+      "get": {
+        "tags": ["Event"],
+        "summary": "Detail of event",
+        "description": "Diperlukan token untuk keamanan data. Masukan object ke dalam fungsi `await signJWT({ data_apapun })` lalu fungsi ini akan mengembalikan token yang akan di kirimkan ke server. ![Cara Bikin Token](/make-token.png)\n**PARAMETER**:\n\n`name: string` (ganti semua spapsi dengan strip '-')",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Contoh 'lorem iPsum Kolor' => 'lorem-iPsum-Kolor'",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/event/lists": {
+      "get": {
+        "tags": ["Event"],
+        "summary": "Lists of event",
+        "description": "Tidak memerlukan parameter atau token apapun.",
+        "consumes": ["application/json"],
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/event/stats": {
+      "get": {
+        "tags": ["Event"],
+        "summary": "Statistik of event",
+        "description": "Tidak memerlukan parameter atau token apapun.",
+        "consumes": ["application/json"],
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/income/new": {
+      "post": {
+        "tags": ["Income"],
+        "summary": "Make new income",
+        "description": "Diperlukan token untuk keamanan data. Masukan object ke dalam fungsi `await signJWT({ data_apapun })` lalu fungsi ini akan mengembalikan token yang akan di kirimkan ke server. ![Cara Bikin Token](/make-token.png)\n**PARAMETER**:\n\n`email: string`\n`income_event_id: string`\n`income_target_id: string` (masukan sama seperti `income_event_id`)\n`income_value: DateTime`\n`income_release: DateTime`",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "body",
+            "description": "Token yang sudah di buat",
+            "required": true,
+            "type": "object",
+            "schema": {
+              "properties": {
+                "token": { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/income/update": {
+      "post": {
+        "tags": ["Income"],
+        "summary": "Update income info",
+        "description": "Diperlukan token untuk keamanan data. Masukan object ke dalam fungsi `await signJWT({ data_apapun })` lalu fungsi ini akan mengembalikan token yang akan di kirimkan ke server. ![Cara Bikin Token](/make-token.png)\n**PARAMETER**:\n\n`email: string`\n`id: string` (income `id`)\n`income_target_id: string` (`id` dari event)\n`income_value: string`\n`income_release: DateTime`",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "body",
+            "description": "Token yang sudah di buat",
+            "required": true,
+            "type": "object",
+            "schema": {
+              "properties": {
+                "token": { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/income/delete": {
+      "post": {
+        "tags": ["Income"],
+        "summary": "Delete income",
+        "description": "Diperlukan token untuk keamanan data. Masukan object ke dalam fungsi `await signJWT({ data_apapun })` lalu fungsi ini akan mengembalikan token yang akan di kirimkan ke server. ![Cara Bikin Token](/make-token.png)\n**PARAMETER**:\n\n`email: string`\n`id: string` (income `id`)",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "body",
+            "description": "Token yang sudah di buat",
+            "required": true,
+            "type": "object",
+            "schema": {
+              "properties": {
+                "token": { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/income/lists": {
+      "get": {
+        "tags": ["Income"],
+        "summary": "Lists of income",
+        "description": "Tidak memerlukan parameter atau token apapun.",
+        "consumes": ["application/json"],
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Register new user",
+        "description": "Diperlukan token untuk keamanan data. Masukan object ke dalam fungsi `await signJWT({ data_apapun })` lalu fungsi ini akan mengembalikan token yang akan di kirimkan ke server. ![Cara Bikin Token](/make-token.png)\n**PARAMETER**:\n\n`username: string`\n`email: string`\n`password: string`",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "body",
+            "description": "Token yang sudah di buat",
+            "required": true,
+            "type": "object",
+            "schema": {
+              "properties": {
+                "token": { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    }
   }
 }

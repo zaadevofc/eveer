@@ -22,7 +22,7 @@ const handler = async (req, res) => {
     console.log(e);
     return res
       .status(500)
-      .json({ ok: false, message: `Gagal mengambil list event!` });
+      .json({ ok: false, message: `Gagal mengambil detail event!` });
   }
 };
 

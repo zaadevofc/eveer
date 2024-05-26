@@ -31,7 +31,7 @@ const RegisterPage = () => {
         password: await hashPassword(e.target.password.value),
       })
     })
-
+    
     if (handle.ok) {
       router.push('/auth/login?reg=1')
     }

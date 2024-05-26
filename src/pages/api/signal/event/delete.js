@@ -12,12 +12,6 @@ const handler = async (req, res) => {
 
   try {
     const { force } = req.query;
-    const data = await prisma.user.findFirst({
-      where: { email: token.email },
-    });
-
-    if (!data)
-      return res.status(405).json({ ok: false, message: "Email tidak valid!" });
 
     if (force == "1") {
       const inc = await prisma.income.delete({
@@ -42,7 +36,7 @@ const handler = async (req, res) => {
     console.log(e);
     return res
       .status(500)
-      .json({ ok: false, message: `Gagal menghapus event!` });
+      .json({ ok: false, message: `Gagal menghapus event. Karna event ini telah terkoneksi dengan Income!` });
   }
 };
 
