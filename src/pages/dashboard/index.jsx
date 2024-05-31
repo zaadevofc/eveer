@@ -4,6 +4,7 @@ import Layouts from '../../components/dashboard/Layouts';
 import { dayjs, fetchJson, statusColor, useQFetchFn } from '../../utils/tools';
 import Loading from '../../components/Loading';
 import Link from 'next/link';
+import Countdown from 'react-countdown';
 import { useSession } from 'next-auth/react';
 
 
@@ -46,9 +47,16 @@ const DashobardPage = () => {
         <div className='grid lg:grid-cols-2 gap-5 w-full'>
           {_EventList.data?.data.map(x => (
             <Link href={`/events/${x.event_name.replace(/ /g, '-').trim()}`} className='cursor-pointer'>
-              <img src={x.event_thumbnail}
-                className="rounded-t-xl w-full h-36 object-cover"
-              />
+              <div className='relative'>
+                <div className="flex justify-center items-center bg-black/10 backdrop-blur-sm rounded-t-xl w-full h-full absolute">
+                  <div className='text-white/80 font-semibold text-3xl tracking-wider'>
+                    <Countdown date={Number(x.event_release)} />
+                  </div>
+                </div>
+                <img src={x.event_thumbnail}
+                  className="rounded-t-xl w-full h-36 object-cover"
+                />
+              </div>
               <div className="max-w-4xl px-4 md:px-5 py-4 mb-5 mx-auto border-back bg-white rounded-b-xl">
                 <div className="flex items-center justify-between">
                   <span className="font-light text-[15px] text-gray-600">
