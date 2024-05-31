@@ -49,7 +49,7 @@ const DashobardPage = () => {
             <Link href={`/events/${x.event_name.replace(/ /g, '-').trim()}`} className='cursor-pointer'>
               <div className='relative'>
                 <div className="flex justify-center items-center bg-black/10 backdrop-blur-sm rounded-t-xl w-full h-full absolute">
-                  <div className='text-white/80 font-semibold text-3xl tracking-wider'>
+                  <div className='text-white/80 font-semibold text-3xl md:text-4xl tracking-wider'>
                     <Countdown date={Number(x.event_release)} />
                   </div>
                 </div>
