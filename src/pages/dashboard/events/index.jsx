@@ -8,7 +8,7 @@ import { Modal, Pagination, Table } from 'rsuite';
 import Loading from '../../../components/Loading';
 import Alerts from '../../../components/dashboard/Alerts';
 import Layouts from '../../../components/dashboard/Layouts';
-import { cache, checkLengthValue, dayjs, exclude, fetchJson, keygen, postJson, signJWT, statusColor, supabase, toLocalISOString, uploadImage, useQFetchFn } from '../../../utils/tools';
+import { cache, checkLengthValue, dayjs, exclude, fetchJson, keygen, postJson, signJWT, statusColor, statusDisplay, supabase, toLocalISOString, uploadImage, useQFetchFn } from '../../../utils/tools';
 import { LuPenSquare, LuTrash2 } from 'react-icons/lu';
 
 const EventsPage = () => {
@@ -242,15 +242,15 @@ const EventsPage = () => {
               <Table.Cell dataKey="event_kecamatan" />
             </Table.Column>
 
-            <Table.Column align='center' fullText resizable width={120}>
+            <Table.Column align='center' fullText resizable width={160}>
               <Table.HeaderCell>STATUS</Table.HeaderCell>
               <Table.Cell dataKey="event_status">
                 {x => (
                   <select onChange={(e) => handleUpdateStatus(e, x.id)} value={`${x.event_status}`}
                     className={`${statusColor(x.event_status)} uppercase text-xs small !w-fit !border-back font-medium !px-2 !py-0.5`}>
-                    <option value={`PENDING`}>PENDING</option>
-                    <option value={`PROGRESS`}>PROGRESS</option>
-                    <option value={`FINISH`}>FINISH</option>
+                    <option value={`PENDING`}>{statusDisplay('PENDING')}</option>
+                    <option value={`PROGRESS`}>{statusDisplay('PROGRESS')}</option>
+                    <option value={`FINISH`}>{statusDisplay('FINISH')}</option>
                   </select>
                 )}
               </Table.Cell>

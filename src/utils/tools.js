@@ -117,6 +117,13 @@ export const statusColor = (status) =>
     ADMIN: "bg-purple-100 text-purple-600",
   }[status]);
 
+export const statusDisplay = (status) =>
+  ({
+    PENDING: "Segera Mulai",
+    PROGRESS: "Sedang di Mulai",
+    FINISH: "Event Berakhir",
+  }[status]);
+
 export const parseForm = (target) => Object.fromEntries(new FormData(target));
 
 export const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_ANON_KEY);

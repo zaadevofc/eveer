@@ -1,7 +1,7 @@
 import React from 'react';
 import { LuArrowRight, LuCheckCircle, LuCircleDollarSign, LuPieChart, LuUser2 } from 'react-icons/lu';
 import Layouts from '../../components/dashboard/Layouts';
-import { dayjs, fetchJson, statusColor, useQFetchFn } from '../../utils/tools';
+import { dayjs, fetchJson, statusColor, statusDisplay, useQFetchFn } from '../../utils/tools';
 import Loading from '../../components/Loading';
 import Link from 'next/link';
 import Countdown from 'react-countdown';
@@ -64,7 +64,7 @@ const DashobardPage = () => {
                     {dayjs(Number(x.event_finish)).format('DD MMM')}
                   </span>
                   <h2 className={`${statusColor(x.event_status)} rounded-md uppercase text-[11px] md:text-xs small !w-fit !border-back font-medium !px-2 !py-0.5`}>
-                    {x.event_status}
+                    {statusDisplay(x.event_status)}
                   </h2>
                 </div>
                 <div className="mt-2">

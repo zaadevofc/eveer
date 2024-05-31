@@ -1,6 +1,6 @@
 import React from 'react'
 import Layouts from '../../components/Layouts'
-import { dayjs, fetchJson, statusColor, useQFetchFn } from '../../utils/tools'
+import { dayjs, fetchJson, statusColor, statusDisplay, useQFetchFn } from '../../utils/tools'
 import Loading from '../../components/Loading'
 import Link from 'next/link'
 import { LuArrowRight } from 'react-icons/lu'
@@ -38,7 +38,7 @@ const EventPage = () => {
                           {dayjs(Number(x.event_finish)).format('DD MMM')}
                         </span>
                         <h2 className={`${statusColor(x.event_status)} rounded-md uppercase text-[11px] md:text-xs small !w-fit !border-back font-medium !px-2 !py-0.5`}>
-                          {x.event_status}
+                          {statusDisplay(x.event_status)}
                         </h2>
                       </div>
                       <div className="mt-2">

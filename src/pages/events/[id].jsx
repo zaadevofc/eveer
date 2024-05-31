@@ -8,7 +8,7 @@ import EventHead from "../../components/EventHead";
 import InfoScreen from "../../components/InfoScreen";
 import Layouts from "../../components/Layouts";
 import Loading from "../../components/Loading";
-import { dayjs, fetchJson, statusColor, useQFetchFn } from "../../utils/tools";
+import { dayjs, fetchJson, statusColor, statusDisplay, useQFetchFn } from "../../utils/tools";
 
 const EventDetailPage = () => {
   const params = useParams()
@@ -86,7 +86,7 @@ const EventDetailPage = () => {
               <div className="flex flex-col gap-1">
                 <h2 className="font-semibold">Event status</h2>
                 <h2 className={`${statusColor(x.event_status)} rounded-md uppercase text-xs small !w-fit !border-back font-medium !px-2 !py-0.5`}>
-                  {x.event_status}
+                  {statusDisplay(x.event_status)}
                 </h2>
               </div>
               <div className="flex flex-col gap-1">

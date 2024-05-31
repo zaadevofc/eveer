@@ -9,7 +9,7 @@ import { Modal, Pagination, Table } from 'rsuite';
 import Loading from '../../../components/Loading';
 import Alerts from '../../../components/dashboard/Alerts';
 import Layouts from '../../../components/dashboard/Layouts';
-import { cache, checkLengthValue, dayjs, fetchJson, postJson, signJWT, statusColor, toLocalISOString, toRupiah, useQFetchFn } from '../../../utils/tools';
+import { cache, checkLengthValue, dayjs, fetchJson, postJson, signJWT, statusColor, statusDisplay, toLocalISOString, toRupiah, useQFetchFn } from '../../../utils/tools';
 
 const IncomePage = () => {
   const [showAddEvent, setShowAddEvent] = useState(false);
@@ -198,12 +198,12 @@ const IncomePage = () => {
               </Table.Cell>
             </Table.Column>
 
-            <Table.Column align='center' fullText resizable width={120}>
+            <Table.Column align='center' fullText resizable width={160}>
               <Table.HeaderCell>EVENT STATUS</Table.HeaderCell>
               <Table.Cell dataKey="income_target.event_status">
                 {x => (
                   <h2 className={`${statusColor(x.income_target.event_status)} rounded-full uppercase text-xs small !w-fit !border-back font-medium !px-2 !py-0.5`}>
-                    {x.income_target.event_status}
+                    {statusDisplay(x.income_target.event_status)}
                   </h2>
                 )}
               </Table.Cell>
